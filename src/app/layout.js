@@ -8,7 +8,7 @@ import LogIn from '@/components/account/LogIn';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
-	title: 'Dev Tracker v1.0',
+	title: 'devTracker v1.0',
 	description: 'Track Your Development Hours with Ease!',
 };
 

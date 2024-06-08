@@ -5,13 +5,14 @@ import { useAppContext } from '@/context';
 import { auth, db } from '@/services/firebaseConfig';
 import { onAuthStateChanged } from 'firebase/auth';
 import userImage from '../../../public/user.png';
-import devImage from '../../../public/dev.png';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { logOutUser } from '@/services/auth';
 import { doc, onSnapshot } from 'firebase/firestore';
+import { useRouter } from 'next/navigation';
 
 const NavBar = () => {
+	const router = useRouter();
 	const pathname = usePathname();
 	const { state, setState } = useAppContext();
 	const { user } = state;
@@ -40,6 +41,7 @@ const NavBar = () => {
 				// Clean up the data subscription when the user logs out
 				return () => unsubscribeData();
 			} else {
+				router.push('/');
 				setState((prev) => ({
 					...prev,
 					user: null,
