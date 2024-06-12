@@ -10,6 +10,8 @@ import { usePathname } from 'next/navigation';
 import { logOutUser } from '@/services/auth';
 import { doc, onSnapshot } from 'firebase/firestore';
 import { useRouter } from 'next/navigation';
+import CreateAccount from '../account/CreateAccount';
+import LogIn from '../account/LogIn';
 
 const NavBar = () => {
 	const router = useRouter();
@@ -65,6 +67,8 @@ const NavBar = () => {
 
 	return (
 		<div className="navbar bg-info">
+			<CreateAccount />
+			<LogIn />
 			<div className="flex-1">
 				<Link href="/" className="btn btn-ghost text-xl text-accent-content">
 					🧑🏻‍💻 devTracker v1.0
@@ -72,8 +76,14 @@ const NavBar = () => {
 				{/* <p>{pathname}</p> */}
 			</div>
 			<div className="flex flex-row items-center gap-1 me-2">
-				
-				{!user && <button className="btn btn-neutral" onClick={() => document.getElementById('log_in').showModal()}>Sign In</button>}
+				{!user && (
+					<button
+						className="btn btn-neutral"
+						onClick={() => document.getElementById('log_in').showModal()}
+					>
+						Sign In
+					</button>
+				)}
 				{user && (
 					<details id="menu_dropdown" className="dropdown dropdown-end">
 						<summary className="m-1 btn btn-circle overflow-clip border-none">

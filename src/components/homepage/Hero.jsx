@@ -83,7 +83,7 @@ const Hero = () => {
 								name="rating-2"
 								className="mask mask-star-2 bg-warning"
 								checked
-								onChange={''}
+								readOnly
 							/>
 						</div>
 					</div>

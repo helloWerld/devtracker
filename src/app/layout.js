@@ -2,8 +2,6 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import NavBar from '../components/ui/NavBar';
 import { AppWrapper } from '../context';
-import CreateAccount from '@/components/account/CreateAccount';
-import LogIn from '@/components/account/LogIn';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -19,8 +17,6 @@ export default function RootLayout({ children }) {
 				className={`${inter.className} bg-black min-h-screen overflow-x-clip relative`}
 			>
 				<AppWrapper>
-					<CreateAccount />
-					<LogIn />
 					<NavBar />
 					{children}
 				</AppWrapper>
