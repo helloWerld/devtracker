@@ -14,9 +14,9 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
 	return (
-		<html lang="en">
+		<html lang="en" data-theme="dark">
 			<body
-				className={`${inter.className} bg-info-content min-h-screen overflow-x-clip relative`}
+				className={`${inter.className} bg-black min-h-screen overflow-x-clip relative`}
 			>
 				<AppWrapper>
 					<CreateAccount />

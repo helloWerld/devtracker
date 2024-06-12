@@ -26,7 +26,7 @@ const Instructions = () => {
 
 	// Change step on actions
 	useEffect(() => {
-		if (employer) {
+		if (employer?.id) {
 			setStep(2);
 		}
 		if (rate) {
@@ -90,7 +90,7 @@ const Instructions = () => {
 		<>
 			<audio id="kaching" src="/kaching.mp3" />
 			{confetti && (
-				<div className="fixed top-0 left-0 right-0 z-[1000]">
+				<div className="fixed top-0 left-0 right-0 z-[100]">
 					<Confetti
 						confettiSource={{ x: 0, y: 50, w: window.innerWidth, h: 0 }}
 						width={window.width}
@@ -130,10 +130,10 @@ const Instructions = () => {
 									id="new_employer_dropdown"
 									className="dropdown dropdown-end"
 								>
-									<summary className="m-1 btn">
+									<summary disabled={step > 3} className="m-1 btn">
 										{employer?.name || 'Click Here'}
 									</summary>
-									<ul className="p-2 shadow menu dropdown-content z-[1] bg-base-300 gap-2 rounded-box w-52">
+									<ul className="p-2 shadow menu dropdown-content bg-base-300 gap-2 rounded-box w-52">
 										{userData?.employersList?.map((employer) => (
 											<li key={employer?.id}>
 												<button
@@ -171,7 +171,7 @@ const Instructions = () => {
 											<button
 												className="btn btn-primary"
 												onClick={() => {
-													setNewEmployer({ id: new Date(), name: '', rate: 0 });
+													setNewEmployer({ id: Date.now(), name: '', rate: 0 });
 													document.getElementById('add_employer').showModal();
 												}}
 											>
@@ -218,7 +218,7 @@ const Instructions = () => {
 										setState((prev) => ({ ...prev, startTime: new Date() }))
 									}
 									disabled={step != 3}
-									className="btn btn-success"
+									className="btn btn-accent"
 								>
 									Start Working!
 								</button>
@@ -269,10 +269,10 @@ const Instructions = () => {
 								<div className="flex flex-row items-center gap-2">
 									<button
 										onClick={save}
-										className="btn btn-success"
+										className="btn btn-accent"
 										disabled={step < 6}
 									>
-										Save
+										Save Event
 									</button>
 									<button
 										onClick={reset}

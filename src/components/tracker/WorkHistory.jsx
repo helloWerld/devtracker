@@ -14,9 +14,9 @@ const WorkHistory = () => {
 	const sortedWorkHistory = () => {
 		switch (sort) {
 			case 'date-desc':
-				return userData?.workHistory.sort((a, b) => a.startTime - b.startTime);
-			case 'date-asc':
 				return userData?.workHistory.sort((a, b) => b.startTime - a.startTime);
+			case 'date-asc':
+				return userData?.workHistory.sort((a, b) => a.startTime - b.startTime);
 			case 'employer-desc':
 				return userData?.workHistory.sort((a, b) =>
 					a.employer.name.localeCompare(b.employer.name)
@@ -85,7 +85,7 @@ const WorkHistory = () => {
 
 				<details id="sort_dropdown" className="dropdown dropdown-end">
 					<summary className="m-1 btn">Sort By</summary>
-					<ul className="p-2 shadow menu dropdown-content z-[1] bg-base-300 rounded-box w-52">
+					<ul className="p-2 shadow menu dropdown-content bg-base-300 rounded-box w-52 z-20">
 						<li
 							onClick={() => {
 								if (sort === 'date-desc') {

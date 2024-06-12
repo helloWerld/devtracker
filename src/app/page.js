@@ -1,12 +1,10 @@
 import React from 'react';
-import Hero from '@/components/home/hero';
+import Hero from '../components/homepage/Hero';
 
-const Home = () => {
+export default function Home() {
 	return (
-		<div>
+		<main className='bg-black'>
 			<Hero />
-		</div>
+		</main>
 	);
 };
-
-export default Home;

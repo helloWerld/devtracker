@@ -125,7 +125,7 @@ const LogIn = () => {
 						/>
 					</label>
 
-					<button className="btn btn-primary" onClick={() => login()}>
+					<button className="btn btn-secondary" onClick={() => login()}>
 						Log In
 					</button>
 				</div>

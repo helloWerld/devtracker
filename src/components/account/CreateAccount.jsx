@@ -168,7 +168,7 @@ const CreateAccount = () => {
 							</label>
 						</>
 					)}
-					<button className="btn btn-primary" onClick={() => createAccount()}>
+					<button className="btn btn-secondary" onClick={() => createAccount()}>
 						Create Account
 					</button>
 				</div>

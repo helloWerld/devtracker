@@ -5,10 +5,9 @@ const NoteModal = ({ setStep }) => {
 	const { state, setState } = useAppContext();
 	const { note } = state;
 	return (
-		<dialog id="add_notes" className="modal">
+		<dialog id="add_notes" className="modal modal-bottom sm:modal-middle">
 			<div className="modal-box">
-				<h3 className="font-semibold text-xl text-accent">Add Work Notes</h3>
-
+				<h3 className="font-semibold text-xl text-primary">Add Work Notes</h3>
 				<p className="py-4 mt-2">What features did you work on?</p>
 				<textarea
 					className="textarea textarea-bordered w-full"
@@ -28,7 +27,7 @@ const NoteModal = ({ setStep }) => {
 						}}
 						className="btn btn-success mr-2"
 					>
-						Save
+						Save Note
 					</button>
 					<button
 						className="btn"

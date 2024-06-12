@@ -11,7 +11,7 @@ const NewEmployerModal = ({ step }) => {
 		defaultRate: 0,
 	});
 	return (
-		<dialog id="add_employer" className="modal">
+		<dialog id="add_employer" className="modal modal-bottom sm:modal-middle">
 			<div className="modal-box">
 				<h3 className="font-semibold text-xl text-primary">
 					Add a New Employer

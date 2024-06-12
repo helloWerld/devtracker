@@ -64,7 +64,7 @@ const NavBar = () => {
 	}
 
 	return (
-		<div className="navbar bg-gradient-to-t from-info to-accent z-[50]">
+		<div className="navbar bg-info">
 			<div className="flex-1">
 				<Link href="/" className="btn btn-ghost text-xl text-accent-content">
 					🧑🏻‍💻 devTracker v1.0
@@ -72,14 +72,16 @@ const NavBar = () => {
 				{/* <p>{pathname}</p> */}
 			</div>
 			<div className="flex flex-row items-center gap-1 me-2">
+				
+				{!user && <button className="btn btn-neutral" onClick={() => document.getElementById('log_in').showModal()}>Sign In</button>}
 				{user && (
 					<details id="menu_dropdown" className="dropdown dropdown-end">
 						<summary className="m-1 btn btn-circle overflow-clip border-none">
 							<img alt="User Icon" src={userImage.src} />
 						</summary>
-						<ul className="p-2 shadow-xl shadow-white/10 menu dropdown-content z-[1] bg-base-100 rounded-box w-52  mt-4 border border-info">
+						<ul className="p-2 shadow-xl shadow-white/10 menu dropdown-content bg-base-100 rounded-box w-80  mt-4 border border-info z-20">
 							{user && (
-								<p className="font-semibold mx-4 my-2 text-info">
+								<p className="font-semibold my-2 text-info uppercase mx-auto">
 									{user?.email}
 								</p>
 							)}
