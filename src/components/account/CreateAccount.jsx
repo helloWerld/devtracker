@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { useAppContext } from '@/context'
 import { signUpWithEmailAndPassword } from '@/services/auth'
 import { usePathname } from 'next/navigation'
+import { MdClose } from 'react-icons/md'
 
 const CreateAccount = () => {
   const { state, setState } = useAppContext()
@@ -15,9 +16,10 @@ const CreateAccount = () => {
   const pathname = usePathname()
 
   useEffect(() => {
-    if (!user && pathname != '/') {
+    if (!user) {
       document.getElementById('sign_up').showModal()
-    } else if (user) {
+    }
+    if (user) {
       document.getElementById('sign_up').close()
     }
   }, [user])
@@ -97,7 +99,15 @@ const CreateAccount = () => {
   return (
     <dialog id="sign_up" className="modal">
       <div className="modal-box">
-        <h3 className="font-bold text-lg">Create Account</h3>
+        <div className="flex flexs-row w-full items-center justify-between">
+          <h3 className="font-bold text-lg">Create Account</h3>
+          {pathname === '/' && (
+            <MdClose
+              onClick={() => document.getElementById('sign_up').close()}
+              className="text-xl cursor-pointer"
+            />
+          )}
+        </div>{' '}
         {errorMessage && (
           <p className="text-error mt-2 border rounded-lg border-error p-2 text-sm">
             Error: {errorMessage}

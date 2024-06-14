@@ -3,6 +3,8 @@
 import React, { useEffect, useState } from 'react'
 import { useAppContext } from '@/context'
 import { logInWithEmailAndPassword } from '@/services/auth'
+import { MdClose } from 'react-icons/md'
+import { usePathname } from 'next/navigation'
 
 const LogIn = () => {
   const { state, setState } = useAppContext()
@@ -10,6 +12,7 @@ const LogIn = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
+  const pathname = usePathname()
 
   useEffect(() => {
     if (user) {
@@ -78,7 +81,15 @@ const LogIn = () => {
   return (
     <dialog id="log_in" className="modal">
       <div className="modal-box">
-        <h3 className="font-bold text-lg">Log In</h3>
+        <div className="flex flexs-row w-full items-center justify-between">
+          <h3 className="font-bold text-lg">Log In</h3>
+          {pathname === '/' && (
+            <MdClose
+              onClick={() => document.getElementById('log_in').close()}
+              className="text-xl cursor-pointer"
+            />
+          )}
+        </div>
         {errorMessage && (
           <p className="text-error mt-2 border rounded-lg border-error p-2 text-sm">
             Error: {errorMessage}

@@ -44,7 +44,7 @@ const NavBar = () => {
         // Clean up the data subscription when the user logs out
         return () => unsubscribeData()
       } else {
-        router.push('/')
+        //router.push('/')
         setState((prev) => ({
           ...prev,
           user: null,
@@ -118,7 +118,7 @@ const NavBar = () => {
                 </li>
               )}
               {!user && (
-                <li onClick={() => closeDropdown()}>
+                <li>
                   <button
                     onClick={() =>
                       document.getElementById('sign_up').showModal()
@@ -129,7 +129,7 @@ const NavBar = () => {
                 </li>
               )}
               {!user && (
-                <li onClick={() => closeDropdown()}>
+                <li>
                   <button
                     onClick={() =>
                       document.getElementById('log_in').showModal()
