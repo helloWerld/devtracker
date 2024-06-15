@@ -183,10 +183,26 @@ const ManualEntry = () => {
           <button onClick={save} className="btn btn-success">
             Save
           </button>
-          <form method="dialog">
-            {/* if there is a button in form, it will close the modal */}
-            <button className="btn">Discard</button>
-          </form>
+          <button
+            onClick={() => {
+              setWorkEvent({
+                employer: {
+                  id: Date.now(),
+                  name: '',
+                  defaultRate: 0,
+                },
+                rate: 0,
+                startTime: null,
+                endTime: null,
+                note: '',
+                status: 'unpaid',
+              })
+              document.getElementById('manual_entry').close()
+            }}
+            className="btn"
+          >
+            Discard
+          </button>
         </div>
       </div>
     </dialog>

@@ -14,7 +14,7 @@ const Hero = () => {
             Track & Invoice Your Dev Hours With Ease!
           </h1>
           <p className="py-6">
-            <span className="text-xl text-info font-bold tracking-wide">
+            <span className="text-xl text-primary font-bold tracking-wide">
               The All-in-One Solution for Freelance Developers:
             </span>{' '}
             Track Time Across Employers, Customize Pay Rates, Monitor Real-Time
@@ -22,7 +22,7 @@ const Hero = () => {
           </p>
           <div className="flex flex-row gap-2">
             <button
-              className="btn btn-secondary"
+              className="btn btn-accent"
               onClick={() => document.getElementById('sign_up').showModal()}
             >
               Create FREE Account

@@ -67,7 +67,7 @@ const NavBar = () => {
   }
 
   return (
-    <div className="navbar bg-info">
+    <div className="navbar bg-gradient-to-b from-primary to-accent">
       <CreateAccount />
       <LogIn />
       <div className="flex-1">
