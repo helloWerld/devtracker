@@ -67,7 +67,7 @@ const NavBar = () => {
   }
 
   return (
-    <div className="navbar bg-gradient-to-b from-primary to-accent">
+    <div className="navbar bg-gradient-to-b from-primary to-accent shadow-lg shadow-white/20 border-b border-black">
       <CreateAccount />
       <LogIn />
       <div className="flex-1">
@@ -87,12 +87,12 @@ const NavBar = () => {
         )}
         {user && (
           <details id="menu_dropdown" className="dropdown dropdown-end">
-            <summary className="m-1 btn btn-circle overflow-clip border-none">
+            <summary className="m-1 btn btn-circle overflow-clip border border-accent hover:shadow-lg hover:shadow-primary/50">
               <img alt="User Icon" src={userImage.src} />
             </summary>
-            <ul className="p-2 shadow-xl shadow-white/10 menu dropdown-content bg-base-100 rounded-box w-80  mt-4 border border-info z-20">
+            <ul className="p-2 shadow-xl shadow-white/10 menu dropdown-content bg-base-100 rounded-box w-80  mt-4 border border-accent z-20">
               {user && (
-                <p className="font-semibold my-2 text-info uppercase mx-auto">
+                <p className="font-semibold my-2 bg-gradient-to-br from-primary to-accent from-10% to-90% text-transparent bg-clip-text uppercase mx-auto">
                   {user?.email}
                 </p>
               )}

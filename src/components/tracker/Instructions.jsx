@@ -84,6 +84,21 @@ const Instructions = () => {
     reset()
   }
 
+  useEffect(() => {
+    const handleBeforeUnload = (e) => {
+      if (startTime) {
+        const confirmationMessage =
+          'Are you sure you want to close this window? You have unsaved work!'
+        e.returnValue = confirmationMessage
+        return confirmationMessage
+      }
+    }
+    window.addEventListener('beforeunload', handleBeforeUnload)
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload)
+    }
+  }, [startTime])
+
   return (
     <>
       <audio id="kaching" src="/kaching.mp3" />

@@ -82,7 +82,7 @@ const WorkHistory = () => {
   }
 
   return (
-    <div className="overflow-x-auto bg-base-100 p-6 mt-6 rounded-lg min-h-80">
+    <div className="overflow-x-auto bg-base-100 p-6 rounded-lg min-h-80">
       <div className="flex flex-row w-full items-center justify-between">
         <h2 className="text-lg font-semibold">Work History</h2>
         <div className="flex flex-row items-center">
@@ -246,7 +246,7 @@ const WorkHistory = () => {
                   {work.note}
                 </p>
               </td>
-              <td className="text-success font-semibold">
+              <td className="text-accent font-semibold">
                 ${' '}
                 {calculateIncome(
                   calculateElapsedTime(

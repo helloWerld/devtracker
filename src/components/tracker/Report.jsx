@@ -104,8 +104,8 @@ const Report = () => {
       {
         label: ' Hours Worked',
         data: hoursWorkedData,
-        backgroundColor: '#ffbe00',
-        borderColor: '#ffbe00',
+        backgroundColor: '#ff52d9',
+        borderColor: '#ff52d9',
         borderWidth: 1,
         barThickness: 20,
       },
