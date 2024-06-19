@@ -7,9 +7,9 @@ import Outstanding from '@/components/invoice/Outstanding'
 
 const Tracker = () => {
   return (
-    <div className="flex gap-6 max-w-screen-2xl min-h-screen pt-8 flex-col mx-auto relative">
+    <div className="flex gap-4 max-w-screen-2xl min-h-screen py-8 px-4 flex-col mx-auto relative">
       <Timer />
-      <div className="flex flex-col lg:flex-row gap-6">
+      <div className="flex flex-col lg:flex-row gap-4">
         <Instructions />
         <Report />
       </div>

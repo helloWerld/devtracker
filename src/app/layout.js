@@ -14,7 +14,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" data-theme="dark">
       <body
-        className={`${inter.className} bg-black min-h-screen overflow-x-clip relative`}
+        className={`${inter.className} bg-primary-content min-h-screen overflow-x-clip relative`}
       >
         <AppWrapper>
           <NavBar />

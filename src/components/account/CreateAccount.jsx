@@ -16,7 +16,7 @@ const CreateAccount = () => {
   const pathname = usePathname()
 
   useEffect(() => {
-    if (!user) {
+    if (!user && pathname != '/') {
       document.getElementById('sign_up').showModal()
     }
     if (user) {

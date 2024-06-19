@@ -8,7 +8,7 @@ import React, { useState } from 'react'
 const Invoice = () => {
   const [selection, setSelection] = useState('')
   return (
-    <div className="flex gap-6 max-w-screen-2xl min-h-screen pt-8 flex-col mx-auto relative">
+    <div className="flex gap-6 max-w-screen-2xl min-h-screen py-8 px-4 flex-col mx-auto relative">
       <Outstanding />
       <div className="join join-vertical lg:join-horizontal mx-auto">
         <button

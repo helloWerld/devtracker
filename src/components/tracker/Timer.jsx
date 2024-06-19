@@ -35,7 +35,7 @@ const Timer = () => {
   return (
     <>
       {startTime && !endTime ? (
-        <div className="flex flex-col lg:flex-row gap-6 items-center justify-between bg-warning text-base-300 p-8 rounded-lg w-full">
+        <div className="flex flex-col lg:flex-row gap-6 items-center justify-between bg-warning text-black p-8 rounded-lg w-full">
           <div className="flex flex-row items-center justify text-sm md:text-base lg:text-xl gap-8">
             <div className="flex flex-col lg:flex-row text-center lg:text-start">
               <p className="font-semibold">Employer: </p>{' '}

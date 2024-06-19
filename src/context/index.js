@@ -19,6 +19,8 @@ const AppContext = createContext({
   startTime: null, // Date object
   endTime: null, // Date object
   note: '', // String
+  invoiceEvents: [],
+  manualEntry: false,
 })
 
 export function AppWrapper({ children }) {
@@ -39,6 +41,8 @@ export function AppWrapper({ children }) {
     startTime: null,
     endTime: null,
     note: '',
+    invoiceEvents: [],
+    manualEntry: false,
   })
 
   return (

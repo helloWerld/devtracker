@@ -5,13 +5,12 @@ import { useAppContext } from '../../context'
 import { calculateElapsedTime, calculateIncome } from '../../utils'
 import { FaArrowDown, FaCaretDown, FaTrashAlt } from 'react-icons/fa'
 import { deleteWorkEventFromWorkHistory } from '@/services/firestore'
-import ManualEntry from './modals/ManualEntry'
 import { usePathname } from 'next/navigation'
 
 const WorkHistory = () => {
   const pathname = usePathname()
-  const { state } = useAppContext()
-  const { userData } = state
+  const { state, setState } = useAppContext()
+  const { userData, manualEntry } = state
   const [sort, setSort] = useState('date-desc')
 
   const sortedWorkHistory = () => {
@@ -96,7 +95,6 @@ const WorkHistory = () => {
               + Manual Entry
             </button>
           )}
-          <ManualEntry />
           <details id="sort_dropdown" className="dropdown dropdown-end">
             <summary className="m-1 btn">Sort By</summary>
             <ul className="p-2 shadow menu dropdown-content bg-base-300 rounded-box w-52 z-20">
@@ -213,6 +211,7 @@ const WorkHistory = () => {
         {/* head */}
         <thead>
           <tr>
+            {manualEntry && <th></th>}
             <th>Date</th>
             <th>Employer</th>
             <th>Rate</th>
@@ -222,13 +221,40 @@ const WorkHistory = () => {
             <th>Notes</th>
             <th>Income Earned</th>
             <th>Status</th>
-            <th>Action</th>
+            {pathname === '/tracker' && <th>Action</th>}
           </tr>
         </thead>
         <tbody>
           {/* row 1 */}
           {sortedWorkHistory()?.map((work) => (
             <tr key={work?.startTime?.toMillis()}>
+              {manualEntry && work.status === 'unpaid' ? (
+                <th>
+                  <input
+                    onChange={(e) => {
+                      if (e.target.checked) {
+                        setState((prev) => ({
+                          ...prev,
+                          invoiceEvents: [...prev.invoiceEvents, work],
+                        }))
+                      } else {
+                        setState((prev) => ({
+                          ...prev,
+                          invoiceEvents: prev.invoiceEvents.filter(
+                            (event) => event != work,
+                          ),
+                        }))
+                      }
+                    }}
+                    type="checkbox"
+                    className="checkbox"
+                  />
+                </th>
+              ) : manualEntry ? (
+                <th></th>
+              ) : (
+                <></>
+              )}
               <td>{work?.startTime?.toDate()?.toLocaleDateString()}</td>
               <td>{work?.employer?.name}</td>
               <td>${work?.rate} / hr</td>
@@ -269,18 +295,20 @@ const WorkHistory = () => {
               >
                 {work?.status}
               </td>
-              <td>
-                <div
-                  className="flex items-center justify-center hover:bg-error hover:text-base-100 rounded-md w-5 h-5 -mr-2 cursor-pointer"
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    console.log('delete work event')
-                    deleteWorkEventFromWorkHistory(state.user.uid, work)
-                  }}
-                >
-                  <FaTrashAlt />
-                </div>
-              </td>
+              {pathname === '/tracker' && (
+                <td>
+                  <div
+                    className="flex items-center justify-center hover:bg-error hover:text-base-100 rounded-md w-5 h-5 -mr-2 cursor-pointer"
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      console.log('delete work event')
+                      deleteWorkEventFromWorkHistory(state.user.uid, work)
+                    }}
+                  >
+                    <FaTrashAlt />
+                  </div>
+                </td>
+              )}
             </tr>
           ))}
         </tbody>

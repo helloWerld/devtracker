@@ -11,7 +11,7 @@ const Outstanding = () => {
   const [totals, setTotals] = useState({})
 
   useEffect(() => {
-    if (userData.workHistory.length > 0) {
+    if (userData?.workHistory?.length > 0) {
       let lifetimeHours = 0
       let lifetimeIncome = 0
       let invoicedHours = 0
@@ -62,7 +62,7 @@ const Outstanding = () => {
   }, [userData])
 
   return (
-    <div className="flex flex-col md:flex-row gap-6 text-center">
+    <div className="flex flex-col md:flex-row gap-4 text-center">
       <div
         onClick={() => setShowIncome((prev) => !prev)}
         className="stat flex flex-col gap-2 p-6 bg-base-100 rounded-lg grow cursor-pointer"

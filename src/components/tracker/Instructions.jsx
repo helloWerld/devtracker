@@ -125,11 +125,11 @@ const Instructions = () => {
 
         {/* Instuctions */}
         <div className="flex flex-row w-full items-center justify-between">
-          <h2 className="text-3xl font-semibold text-white">How It Works:</h2>
-          <div className="tooltip tooltip-left" data-tip="Reset Tracker">
+          <h2 className="text-3xl font-semibold">How It Works:</h2>
+          <div className="tooltip" data-tip="Reset Tracker">
             <RxReset
               onClick={() => reset()}
-              className="text-lg cursor-pointer"
+              className="text-lg cursor-pointer active:scale-90"
             />
           </div>
         </div>
