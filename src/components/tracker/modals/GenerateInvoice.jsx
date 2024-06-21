@@ -1,6 +1,24 @@
 import React, { useState } from 'react'
+import { generateNewInvoice } from '@/services/invoice'
 
 const GenerateInvoice = () => {
+  const [invoiceData, setInvoiceData] = useState({
+    from: 'Sender Company Name',
+    to: 'Recipient Company Name',
+    logo: 'https://your-logo-url.com',
+    currency: 'USD',
+    number: 'INV-0001',
+    date: '2024-06-19',
+    payment_terms: 'Net 30',
+    items: [
+      {
+        name: 'Product 1',
+        quantity: 2,
+        unit_cost: 50.0,
+      },
+    ],
+    notes: 'Thank you for your business!',
+  })
   const [requiredFields, setRequiredFields] = useState({
     from: {
       name: '',
@@ -65,6 +83,11 @@ const GenerateInvoice = () => {
       }))
     }
   }
+
+  function handleSubmit() {
+    generateNewInvoice(invoiceData)
+  }
+
   return (
     <dialog id="generate_invoice" className="modal">
       <div className="modal-box lg:min-w-[900px]">
@@ -125,7 +148,7 @@ const GenerateInvoice = () => {
                     name="invoice_number"
                     className="toggle toggle-xs"
                     checked={optionalFields?.invoice_number?.enabled}
-                    onClick={(e) => handleToggle(e)}
+                    onChange={(e) => handleToggle(e)}
                   />
                 </label>
                 {optionalFields?.invoice_number?.enabled && (
@@ -145,7 +168,7 @@ const GenerateInvoice = () => {
                     name="due_date"
                     className="toggle toggle-xs"
                     checked={optionalFields?.due_date?.enabled}
-                    onClick={(e) => handleToggle(e)}
+                    onChange={(e) => handleToggle(e)}
                   />
                 </label>
                 {optionalFields?.due_date?.enabled && (
@@ -165,7 +188,7 @@ const GenerateInvoice = () => {
                     name="tax"
                     className="toggle toggle-xs"
                     checked={optionalFields?.tax?.enabled}
-                    onClick={(e) => handleToggle(e)}
+                    onChange={(e) => handleToggle(e)}
                   />
                 </label>
                 {optionalFields?.tax?.enabled && (
@@ -185,7 +208,7 @@ const GenerateInvoice = () => {
                     name="notes"
                     className="toggle toggle-xs"
                     checked={optionalFields?.notes?.enabled}
-                    onClick={(e) => handleToggle(e)}
+                    onChange={(e) => handleToggle(e)}
                   />
                 </label>
                 {optionalFields?.notes?.enabled && (
@@ -205,7 +228,7 @@ const GenerateInvoice = () => {
                     name="terms_conditions"
                     className="toggle toggle-xs"
                     checked={optionalFields?.terms_conditions?.enabled}
-                    onClick={(e) => handleToggle(e)}
+                    onChange={(e) => handleToggle(e)}
                   />
                 </label>
                 {optionalFields?.terms_conditions?.enabled && (
@@ -223,6 +246,7 @@ const GenerateInvoice = () => {
         <div className="ms-auto flex flex-row items-center gap-4 w-fit">
           <button
             onClick={() => {
+              handleSubmit()
               console.log('Required Fields:', requiredFields)
               console.log('Optional Fields:', optionalFields)
             }}

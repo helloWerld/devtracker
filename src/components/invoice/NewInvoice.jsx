@@ -80,6 +80,7 @@ const NewInvoice = () => {
             <ul className="p-2 shadow menu dropdown-content z-[20] bg-base-300 rounded-box w-52 mt-2">
               {userData?.employersList?.map((employer) => (
                 <li
+                  key={employer.name}
                   onClick={() => {
                     filterUnpaidWorkEventsByEmployer(employer.name)
                     document
@@ -137,8 +138,8 @@ const NewInvoice = () => {
                   <th>Status</th>
                 </tr>
               </thead>
-              {invoiceEvents.map((event) => (
-                <tbody>
+              <tbody>
+                {invoiceEvents.map((event) => (
                   <tr key={event?.startTime?.toMillis()}>
                     <td>{event?.startTime?.toDate()?.toLocaleDateString()}</td>
                     <td>{event?.employer?.name}</td>
@@ -180,8 +181,8 @@ const NewInvoice = () => {
                       {event?.status}
                     </td>
                   </tr>
-                </tbody>
-              ))}
+                ))}
+              </tbody>
             </table>
           </div>
           <div className="stats bg-base-300 w-fit ms-auto mt-auto p-0">

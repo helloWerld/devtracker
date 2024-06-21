@@ -90,7 +90,7 @@ const NavBar = () => {
   }
 
   return (
-    <div className="navbar bg-gradient-to-b from-primary to-accent shadow-lg shadow-accent/20 border-b border-secondary">
+    <div className="navbar bg-gradient-to-br from-primary to-accent shadow-lg shadow-accent/20 border-b border-secondary">
       <CreateAccount />
       <LogIn />
       <div className="flex-1">
@@ -167,7 +167,7 @@ const NavBar = () => {
               Theme Controller
             </p>
             {themes?.map((theme) => (
-              <li>
+              <li key={theme}>
                 <input
                   type="radio"
                   name="theme-dropdown"

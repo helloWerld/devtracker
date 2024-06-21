@@ -42,7 +42,6 @@ const Outstanding = () => {
             workEvent.startTime.toDate(),
             workEvent.endTime.toDate(),
           ).totalSeconds
-          console.log(workEvent.rate)
           lifetimeHours += workTimeInSeconds / 3600
           lifetimeIncome += Number(
             calculateIncome(workTimeInSeconds, workEvent.rate),
