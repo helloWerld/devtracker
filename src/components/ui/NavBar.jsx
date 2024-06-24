@@ -85,16 +85,19 @@ const NavBar = () => {
   }, [])
 
   function closeDropdown() {
-    document.getElementById('menu_dropdown').removeAttribute('open')
-    document.getElementById('theme_controller').removeAttribute('open')
+    document.getElementById('menu_dropdown')?.removeAttribute('open')
+    document.getElementById('theme_controller')?.removeAttribute('open')
   }
 
   return (
-    <div className="navbar bg-gradient-to-br from-primary to-accent shadow-lg shadow-accent/20 border-b border-secondary">
+    <div className="navbar bg-gradient-to-b from-primary to-accent shadow-lg shadow-accent/20 border-b border-primary">
       <CreateAccount />
       <LogIn />
       <div className="flex-1">
-        <Link href="/" className="btn btn-ghost text-xl text-accent-content">
+        <Link
+          href="/"
+          className="btn btn-ghost font-bold text-xl text-accent-content"
+        >
           🧑🏻‍💻 devTracker v1.0
         </Link>
         {/* <p>{pathname}</p> */}
@@ -129,6 +132,7 @@ const NavBar = () => {
                 <li onClick={() => closeDropdown()}>
                   <Link href="/invoice" className="justify-between">
                     Generate Invoice
+                    <div className="badge badge-primary">Premium</div>
                   </Link>
                 </li>
               )}

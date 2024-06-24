@@ -2,23 +2,25 @@
 
 import NewInvoice from '@/components/invoice/NewInvoice'
 import Outstanding from '@/components/invoice/Outstanding'
+import PaidInvoices from '@/components/invoice/PaidInvoices'
+import { PendingInvoices } from '@/components/invoice/PendingInvoices'
 import WorkHistory from '@/components/tracker/WorkHistory'
 import React, { useState } from 'react'
 
 const Invoice = () => {
-  const [selection, setSelection] = useState('')
+  const [selection, setSelection] = useState('new')
   return (
     <div className="flex gap-6 max-w-screen-2xl min-h-screen py-8 px-4 flex-col mx-auto relative">
       <Outstanding />
       <div className="join join-vertical lg:join-horizontal mx-auto">
         <button
-          className={`${selection === 'new' && 'btn-accent'} btn join-item active`}
+          className={`${selection === 'new' && 'btn-info'} btn join-item active`}
           onClick={() => setSelection('new')}
         >
           New Invoice
         </button>
         <button
-          className={`${selection === 'pending' && 'btn-accent'} btn join-item active`}
+          className={`${selection === 'pending' && 'btn-warning'} btn join-item active`}
           onClick={() => setSelection('pending')}
         >
           View Pending
@@ -31,7 +33,9 @@ const Invoice = () => {
         </button>
       </div>
       {selection === 'new' && <NewInvoice />}
-      <WorkHistory />
+      {selection === 'new' && <WorkHistory />}
+      {selection === 'pending' && <PendingInvoices />}
+      {selection === 'paid' && <PaidInvoices />}
     </div>
   )
 }

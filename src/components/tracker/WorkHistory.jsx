@@ -4,14 +4,20 @@ import React, { useState } from 'react'
 import { useAppContext } from '../../context'
 import { calculateElapsedTime, calculateIncome } from '../../utils'
 import { FaArrowDown, FaCaretDown, FaTrashAlt } from 'react-icons/fa'
-import { deleteWorkEventFromWorkHistory } from '@/services/firestore'
+import {
+  deleteWorkEventFromWorkHistory,
+  updateWorkEventStatus,
+} from '@/services/firestore'
 import { usePathname } from 'next/navigation'
+import DeleteWorkEvent from './modals/DeleteWorkEvent'
+import ManualEntry from './modals/ManualEntry'
 
 const WorkHistory = () => {
   const pathname = usePathname()
   const { state, setState } = useAppContext()
   const { userData, manualEntry } = state
   const [sort, setSort] = useState('date-desc')
+  const [deleteWork, setDeleteWork] = useState(null)
 
   const sortedWorkHistory = () => {
     switch (sort) {
@@ -82,18 +88,26 @@ const WorkHistory = () => {
 
   return (
     <div className="overflow-x-auto bg-base-100 p-6 rounded-lg min-h-80">
+      <DeleteWorkEvent
+        setDeleteWork={setDeleteWork}
+        uid={state?.user?.uid}
+        deleteWork={deleteWork}
+      />
       <div className="flex flex-row w-full items-center justify-between">
         <h2 className="text-lg font-semibold">Work History</h2>
         <div className="flex flex-row items-center">
           {pathname === '/tracker' && (
-            <button
-              className="btn"
-              onClick={() =>
-                document.getElementById('manual_entry').showModal()
-              }
-            >
-              + Manual Entry
-            </button>
+            <>
+              <ManualEntry />
+              <button
+                className="btn"
+                onClick={() =>
+                  document.getElementById('manual_entry').showModal()
+                }
+              >
+                + Manual Entry
+              </button>
+            </>
           )}
           <details id="sort_dropdown" className="dropdown dropdown-end">
             <summary className="m-1 btn">Sort By</summary>
@@ -107,7 +121,7 @@ const WorkHistory = () => {
                   }
                   document
                     .getElementById('sort_dropdown')
-                    .removeAttribute('open')
+                    ?.removeAttribute('open')
                 }}
               >
                 <a className="flex flex-row items-center justify-between">
@@ -128,7 +142,7 @@ const WorkHistory = () => {
                   }
                   document
                     .getElementById('sort_dropdown')
-                    .removeAttribute('open')
+                    ?.removeAttribute('open')
                 }}
               >
                 <a className="flex flex-row items-center justify-between">
@@ -149,7 +163,7 @@ const WorkHistory = () => {
                   }
                   document
                     .getElementById('sort_dropdown')
-                    .removeAttribute('open')
+                    ?.removeAttribute('open')
                 }}
               >
                 <a className="flex flex-row items-center justify-between">
@@ -170,7 +184,7 @@ const WorkHistory = () => {
                   }
                   document
                     .getElementById('sort_dropdown')
-                    .removeAttribute('open')
+                    ?.removeAttribute('open')
                 }}
               >
                 <a className="flex flex-row items-center justify-between">
@@ -191,7 +205,7 @@ const WorkHistory = () => {
                   }
                   document
                     .getElementById('sort_dropdown')
-                    .removeAttribute('open')
+                    ?.removeAttribute('open')
                 }}
               >
                 <a className="flex flex-row items-center justify-between">
@@ -297,16 +311,104 @@ const WorkHistory = () => {
               </td>
               {pathname === '/tracker' && (
                 <td>
-                  <div
-                    className="flex items-center justify-center hover:bg-error hover:text-base-100 rounded-md w-5 h-5 -mr-2 cursor-pointer"
-                    onClick={(e) => {
-                      e.stopPropagation()
-                      console.log('delete work event')
-                      deleteWorkEventFromWorkHistory(state.user.uid, work)
-                    }}
-                  >
-                    <FaTrashAlt />
-                  </div>
+                  <details className="work_action dropdown dropdown-end">
+                    <summary className="m-1 btn btn-ghost">
+                      {' '}
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        className="inline-block w-5 h-5 stroke-current text-white"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"
+                        ></path>
+                      </svg>
+                    </summary>
+                    <ul className="p-2 mt-2 shadow menu dropdown-content z-[1] bg-base-300 rounded-lg w-52">
+                      <p className="px-3 py-2 font-bold">Set Status</p>
+                      <li>
+                        <a
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            console.log('change status to unpaid')
+                            updateWorkEventStatus(userData.uid, work, 'unpaid')
+                            Array.from(
+                              document.getElementsByClassName('work_action'),
+                            ).forEach((element) => {
+                              element.removeAttribute('open')
+                            })
+                          }}
+                          className="text-error font-semibold"
+                        >
+                          Unpaid
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            console.log('change status to invoiced')
+                            updateWorkEventStatus(
+                              userData.uid,
+                              work,
+                              'invoiced',
+                            )
+                            Array.from(
+                              document.getElementsByClassName('work_action'),
+                            ).forEach((element) => {
+                              element.removeAttribute('open')
+                            })
+                          }}
+                          className="text-warning font-semibold"
+                        >
+                          Invoiced
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            console.log('change status to paid')
+                            updateWorkEventStatus(userData.uid, work, 'paid')
+                            Array.from(
+                              document.getElementsByClassName('work_action'),
+                            ).forEach((element) => {
+                              element.removeAttribute('open')
+                            })
+                          }}
+                          className="text-accent font-semibold"
+                        >
+                          Paid
+                        </a>
+                      </li>
+                      <div className="divider"></div>
+                      <li>
+                        <a
+                          className="btn btn-error"
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            console.log('delete work event')
+                            setDeleteWork(work)
+                            document
+                              .getElementById('confirm_delete_work_event')
+                              .showModal()
+                            Array.from(
+                              document.getElementsByClassName('work_action'),
+                            ).forEach((element) => {
+                              element.removeAttribute('open')
+                            })
+                          }}
+                        >
+                          <FaTrashAlt />
+                          Delete
+                        </a>
+                      </li>
+                    </ul>
+                  </details>
                 </td>
               )}
             </tr>

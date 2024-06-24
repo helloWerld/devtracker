@@ -98,3 +98,32 @@ export const deleteWorkEventFromWorkHistory = async (uid, workEvent) => {
     return { isError: true, error }
   }
 }
+
+// Update a work event's status (unpaid, invoiced, or paid)
+export const updateWorkEventStatus = async (uid, workEvent, newStatus) => {
+  console.log('Updating work event status:', workEvent)
+  const userDocRef = doc(db, 'users', uid)
+  try {
+    const docSnap = await getDoc(userDocRef)
+    const data = docSnap
+      .data()
+      .workHistory.filter(
+        (work) => work.startTime.seconds === workEvent.startTime.seconds,
+      )[0]
+    console.log('Data: ', data)
+    const updatedWorkEvent = {
+      ...workEvent,
+      status: newStatus,
+    }
+    await updateDoc(userDocRef, {
+      workHistory: arrayUnion(updatedWorkEvent),
+    })
+    await updateDoc(userDocRef, {
+      workHistory: arrayRemove(data),
+    })
+    return { isError: false }
+  } catch (error) {
+    console.log(error)
+    return { isError: true, error }
+  }
+}

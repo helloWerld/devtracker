@@ -1,8 +1,9 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from 'firebase/app'
+import { getApp, initializeApp } from 'firebase/app'
 // import { getAnalytics } from 'firebase/analytics';
 import { getAuth } from 'firebase/auth'
 import { getFirestore } from 'firebase/firestore'
+import { getFunctions, connectFunctionsEmulator } from 'firebase/functions'
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -19,3 +20,7 @@ export const app = initializeApp(firebaseConfig)
 // export const analytics = getAnalytics(app);
 export const auth = getAuth(app)
 export const db = getFirestore(app)
+
+//Emulator Setup
+const functions = getFunctions(getApp())
+connectFunctionsEmulator(functions, '127.0.0.1', 5001)

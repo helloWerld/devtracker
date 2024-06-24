@@ -14,7 +14,7 @@ const Hero = () => {
             Track & Invoice Your Dev Hours With Ease!
           </h1>
           <p className="py-6">
-            <span className="text-xl text-primary font-bold tracking-wide">
+            <span className="bg-gradient-to-br from-primary to-accent text-xl text-transparent bg-clip-text font-bold tracking-wide">
               The All-in-One Solution for Freelance Developers:
             </span>{' '}
             Track Time Across Employers, Customize Pay Rates, Monitor Real-Time

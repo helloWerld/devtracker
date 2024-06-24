@@ -131,7 +131,7 @@ const ManualEntry = () => {
                   handleChange('rate', employer?.defaultRate)
                   document
                     .getElementById('manual_entry_choose_employer')
-                    .removeAttribute('open')
+                    ?.removeAttribute('open')
                 }}
                 key={employer?.name}
                 className="cursor-pointer hover:bg-base-100 rounded-lg p-2"

@@ -159,7 +159,7 @@ const Instructions = () => {
                             }))
                             document
                               .getElementById('new_employer_dropdown')
-                              .removeAttribute('open')
+                              ?.removeAttribute('open')
                           }}
                         >
                           {employer?.name}

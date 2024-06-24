@@ -58,7 +58,9 @@ const NewInvoice = () => {
     <div className="flex flex-row flex-nowrap gap-4">
       <div className="flex flex-col w-fit rounded-lg bg-base-100 h-fit p-6">
         <div className="flex flex-row items-center justify-between mb-4">
-          <h2 className="text-lg font-semibold">Generate a New Invoice</h2>
+          <h2 className="text-lg font-semibold text-info">
+            Generate a New Invoice
+          </h2>
           <div className="tooltip cursor-pointer" data-tip="Reset Invoice">
             <RxReset
               onClick={() =>
@@ -73,7 +75,10 @@ const NewInvoice = () => {
         </div>
         <div className="flex flex-row items-center gap-4">
           <details id="employer_list" className="dropdown">
-            <summary className="btn">
+            <summary
+              className="btn"
+              disabled={!userData?.employersList?.length > 0}
+            >
               <MdOutlineWorkOutline className="text-lg" />
               By Employer
             </summary>
@@ -85,7 +90,7 @@ const NewInvoice = () => {
                     filterUnpaidWorkEventsByEmployer(employer.name)
                     document
                       .getElementById('employer_list')
-                      .removeAttribute('open')
+                      ?.removeAttribute('open')
                   }}
                 >
                   <a>{employer?.name}</a>
@@ -102,6 +107,11 @@ const NewInvoice = () => {
               }))
             }
             className="btn"
+            disabled={
+              !userData?.workHistory?.filter(
+                (event) => event.status === 'unpaid',
+              ).length > 0
+            }
           >
             <MdOutlineCheckBox className="text-lg" />
             Manual Selection

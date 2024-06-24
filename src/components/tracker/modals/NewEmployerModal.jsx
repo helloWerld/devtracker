@@ -69,7 +69,7 @@ const NewEmployerModal = ({ step }) => {
               document.getElementById('add_employer').close()
               document
                 .getElementById('new_employer_dropdown')
-                .removeAttribute('open')
+                ?.removeAttribute('open')
             }}
             className="btn btn-success mr-2"
           >
