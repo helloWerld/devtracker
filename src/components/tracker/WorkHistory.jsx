@@ -9,8 +9,8 @@ import {
   updateWorkEventStatus,
 } from '@/services/firestore'
 import { usePathname } from 'next/navigation'
-import DeleteWorkEvent from './modals/DeleteWorkEvent'
-import ManualEntry from './modals/ManualEntry'
+import DeleteWorkEvent from '../modals/DeleteWorkEvent'
+import ManualEntry from '../modals/ManualEntry'
 
 const WorkHistory = () => {
   const pathname = usePathname()

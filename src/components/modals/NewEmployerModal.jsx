@@ -54,18 +54,48 @@ const NewEmployerModal = ({ step }) => {
             disabled={
               newEmployer?.name?.length === 0 || newEmployer?.defaultRate <= 0
             }
-            onClick={() => {
-              addEmployerToEmployersList(user.uid, newEmployer)
-              setState((prev) => ({
-                ...prev,
-                employer: newEmployer,
-                rate: newEmployer?.defaultRate,
-              }))
-              setNewEmployer({
-                id: '',
-                name: '',
-                defaultRate: 0,
-              })
+            onClick={async () => {
+              const response = await addEmployerToEmployersList(
+                user.uid,
+                newEmployer,
+              )
+              if (response.isError) {
+                setState((prev) => ({
+                  ...prev,
+                  toasts: [
+                    ...prev.toasts,
+                    {
+                      id: Date.now(),
+                      message: `Error: ${response?.error}`,
+                      style: 'error',
+                      autoclose: true,
+                    },
+                  ],
+                }))
+              } else {
+                setState((prev) => ({
+                  ...prev,
+                  toasts: [
+                    ...prev.toasts,
+                    {
+                      id: Date.now(),
+                      message: `New employer added successfully!`,
+                      style: 'success',
+                      autoclose: true,
+                    },
+                  ],
+                }))
+                setState((prev) => ({
+                  ...prev,
+                  employer: newEmployer,
+                  rate: newEmployer?.defaultRate,
+                }))
+                setNewEmployer({
+                  id: '',
+                  name: '',
+                  defaultRate: 0,
+                })
+              }
               document.getElementById('add_employer').close()
               document
                 .getElementById('new_employer_dropdown')

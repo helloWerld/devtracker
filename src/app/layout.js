@@ -20,6 +20,7 @@ export default function RootLayout({ children }) {
         <AppWrapper>
           <NavBar />
           {children}
+          <Toast />
         </AppWrapper>
       </body>
     </html>

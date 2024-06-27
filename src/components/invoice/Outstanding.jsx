@@ -64,7 +64,7 @@ const Outstanding = () => {
     <div className="flex flex-col md:flex-row gap-4 text-center">
       <div
         onClick={() => setShowIncome((prev) => !prev)}
-        className="stat flex flex-col gap-2 p-6 bg-base-100 rounded-lg grow cursor-pointer"
+        className="stat flex flex-col gap-2 p-6 bg-base-100 hover:bg-base-200 rounded-lg grow cursor-pointer"
       >
         <div className="stat-title text-success font-semibold">
           Lifetime Paid
@@ -77,7 +77,7 @@ const Outstanding = () => {
       </div>
       <div
         onClick={() => setShowIncome((prev) => !prev)}
-        className="stat flex flex-col gap-2 p-6 bg-base-100 rounded-lg grow cursor-pointer"
+        className="stat flex flex-col gap-2 p-6 bg-base-100 hover:bg-base-200 rounded-lg grow cursor-pointer"
       >
         <div className="stat-title text-warning font-semibold">
           Currently Invoiced
@@ -90,7 +90,7 @@ const Outstanding = () => {
       </div>
       <div
         onClick={() => setShowIncome((prev) => !prev)}
-        className="stat flex flex-col gap-2 p-6 bg-base-100 rounded-lg grow cursor-pointer"
+        className="stat flex flex-col gap-2 p-6 bg-base-100 hover:bg-base-200 rounded-lg grow cursor-pointer"
       >
         <div className="stat-title text-error font-semibold">
           Currently Unpaid

@@ -6,12 +6,11 @@ import { RxReset } from 'react-icons/rx'
 import { useAppContext } from '../../context'
 import Confetti from 'react-confetti'
 import {
-  addEmployerToEmployersList,
   removeEmployerFromEmployersList,
   saveWorkEventToWorkHistory,
 } from '@/services/firestore'
-import NoteModal from './modals/NoteModal'
-import NewEmployerModal from './modals/NewEmployerModal'
+import NoteModal from '../modals/NoteModal'
+import NewEmployerModal from '../modals/NewEmployerModal'
 
 const Instructions = () => {
   const { state, setState } = useAppContext()
@@ -109,7 +108,7 @@ const Instructions = () => {
             width={window.width}
             height={window.height}
             recycle={false}
-            numberOfPieces={1000}
+            numberOfPieces={5000}
             onConfettiComplete={() => setConfetti(false)}
           />
         </div>

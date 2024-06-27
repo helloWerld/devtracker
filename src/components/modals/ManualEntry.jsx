@@ -1,6 +1,6 @@
 import { saveWorkEventToWorkHistory } from '@/services/firestore'
 import React, { useState, useEffect } from 'react'
-import { useAppContext } from '../../../context'
+import { useAppContext } from '../../context'
 
 const ManualEntry = () => {
   const { state } = useAppContext()

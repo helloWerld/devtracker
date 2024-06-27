@@ -5,7 +5,7 @@ import { MdOutlineCheckBox, MdOutlineWorkOutline } from 'react-icons/md'
 import { RxReset } from 'react-icons/rx'
 import { useAppContext } from '@/context'
 import { calculateElapsedTime, calculateIncome } from '@/utils'
-import GenerateInvoice from '../tracker/modals/GenerateInvoice'
+import GenerateInvoice from '../modals/GenerateInvoice'
 
 const NewInvoice = () => {
   const { state, setState } = useAppContext()
@@ -52,10 +52,11 @@ const NewInvoice = () => {
       invoiceEvents: filteredEmployers,
       manualEntry: false,
     }))
+    return filteredEmployers
   }
 
   return (
-    <div className="flex flex-row flex-nowrap gap-4">
+    <div className="flex flex-col lg:flex-row flex-nowrap gap-4">
       <div className="flex flex-col w-fit rounded-lg bg-base-100 h-fit p-6">
         <div className="flex flex-row items-center justify-between mb-4">
           <h2 className="text-lg font-semibold text-info">
@@ -73,10 +74,10 @@ const NewInvoice = () => {
             />
           </div>
         </div>
-        <div className="flex flex-row items-center gap-4">
+        <div className="flex flex-col md:flex-row items-center gap-4">
           <details id="employer_list" className="dropdown">
             <summary
-              className="btn"
+              className="btn flex flex-nowrap whitespace-nowrap"
               disabled={!userData?.employersList?.length > 0}
             >
               <MdOutlineWorkOutline className="text-lg" />
@@ -87,7 +88,23 @@ const NewInvoice = () => {
                 <li
                   key={employer.name}
                   onClick={() => {
-                    filterUnpaidWorkEventsByEmployer(employer.name)
+                    const filteredEmployers = filterUnpaidWorkEventsByEmployer(
+                      employer.name,
+                    )
+                    if (filteredEmployers.length === 0) {
+                      setState((prev) => ({
+                        ...prev,
+                        toasts: [
+                          ...prev.toasts,
+                          {
+                            id: Date.now(),
+                            message: `No unpaid invoices for ${employer.name}`,
+                            style: 'warning',
+                            autoclose: true,
+                          },
+                        ],
+                      }))
+                    }
                     document
                       .getElementById('employer_list')
                       ?.removeAttribute('open')
@@ -106,7 +123,7 @@ const NewInvoice = () => {
                 manualEntry: true,
               }))
             }
-            className="btn"
+            className="btn flex flex-nowrap"
             disabled={
               !userData?.workHistory?.filter(
                 (event) => event.status === 'unpaid',
@@ -195,7 +212,7 @@ const NewInvoice = () => {
               </tbody>
             </table>
           </div>
-          <div className="stats bg-base-300 w-fit ms-auto mt-auto p-0">
+          <div className="stats stats-vertical md:stats-horizontal bg-base-300 w-fit mx-auto mt-auto p-0">
             <div className="stat px-10 flex flex-row items-center">
               <div className="stat-title">Invoice Hours</div>
               <div className="stat-value text-xl">{invoiceHours}</div>

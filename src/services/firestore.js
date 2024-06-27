@@ -52,8 +52,10 @@ export const addEmployerToEmployersList = async (uid, employer) => {
     await updateDoc(userDocRef, {
       employersList: arrayUnion(employer),
     })
+    return { isError: false }
   } catch (error) {
     console.log(error)
+    return { isError: true, error: error }
   }
 }
 

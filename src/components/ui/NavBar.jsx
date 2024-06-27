@@ -39,7 +39,7 @@ const NavBar = () => {
   const router = useRouter()
   const pathname = usePathname()
   const { state, setState } = useAppContext()
-  const { user } = state
+  const { user, userData } = state
 
   useEffect(() => {
     // This will unsubscribe from auth changes
@@ -113,8 +113,11 @@ const NavBar = () => {
         )}
         {user && (
           <details id="menu_dropdown" className="dropdown dropdown-end">
-            <summary className="m-1 btn btn-circle overflow-clip border border-accent hover:shadow-lg hover:shadow-primary/50">
-              <img alt="User Icon" src={userImage.src} />
+            <summary className="m-1 btn btn-circle overflow-clip border border-base-300 hover:shadow-lg hover:shadow-primary/50">
+              <img
+                alt="User Icon"
+                src={userData?.photoURL || user?.photoURL || userImage.src}
+              />
             </summary>
             <ul className="p-2 shadow-xl shadow-white/10 menu dropdown-content bg-base-100 rounded-box w-80  mt-4 border border-accent z-20">
               <p className="font-semibold my-2 bg-gradient-to-br from-primary to-accent from-10% to-90% text-transparent bg-clip-text uppercase mx-auto">

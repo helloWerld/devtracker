@@ -1,7 +1,14 @@
-import React, { useState } from 'react'
+'use client'
+
+import React, { useState, useEffect } from 'react'
 import { generateNewInvoice } from '@/services/invoice'
+import { useAppContext } from '@/context'
+import { calculateElapsedTime } from '@/utils'
 
 const GenerateInvoice = () => {
+  const { state } = useAppContext()
+  const { invoiceEvents } = state
+  const [lineItems, setLineItems] = useState([])
   const [invoiceData, setInvoiceData] = useState({
     from: 'Sender Company Name',
     to: 'Recipient Company Name',
@@ -20,17 +27,14 @@ const GenerateInvoice = () => {
     notes: 'Thank you for your business!',
   })
   const [requiredFields, setRequiredFields] = useState({
-    from: {
-      name: '',
-      address_line_one: '',
-      address_line_two: '',
-    },
-    bill_to: {
-      name: '',
-      address_line_one: '',
-      address_line_two: '',
-    },
+    from_name: '',
+    from_address_line_one: '',
+    from_address_line_two: '',
+    bill_to_name: '',
+    bill_to_address_line_one: '',
+    bill_to_address_line_two: '',
   })
+
   const [optionalFields, setOptionalFields] = useState({
     invoice_number: {
       enabled: false,
@@ -54,6 +58,24 @@ const GenerateInvoice = () => {
     },
   })
 
+  useEffect(() => {
+    console.log('Invoice Events: ', invoiceEvents)
+    let items = []
+    invoiceEvents.forEach((event) => {
+      const { note, startTime, endTime, rate } = event
+      items.push({
+        name: note,
+        quantity: (
+          calculateElapsedTime(startTime.toDate(), endTime.toDate())
+            .totalSeconds / 3600
+        ).toFixed(2),
+        unit_cost: rate,
+      })
+    })
+    console.log('line items: ', items)
+    setLineItems(items)
+  }, [invoiceEvents])
+
   function handleToggle(event) {
     setOptionalFields((prev) => ({
       ...prev,
@@ -68,10 +90,7 @@ const GenerateInvoice = () => {
     if (type === 'required') {
       setRequiredFields((prev) => ({
         ...prev,
-        [event.target.name]: {
-          ...prev[event.target.name],
-          value: event.target.value,
-        },
+        [event.target.name]: event.target.value,
       }))
     } else if (type === 'optional') {
       setOptionalFields((prev) => ({
@@ -85,12 +104,38 @@ const GenerateInvoice = () => {
   }
 
   function handleSubmit() {
-    generateNewInvoice(invoiceData)
+    console.log('Required:', requiredFields)
+    console.log('Optional:', optionalFields)
+    //console.log('Invoice Data:', invoiceData)
+    setInvoiceData({
+      from: `${requiredFields?.from_name}\n${requiredFields?.from_address_line_one}\n${requiredFields?.from_address_line_two}`,
+      to: `${requiredFields?.bill_to_name}\n${requiredFields?.bill_to_address_line_one}\n${requiredFields?.bill_to_address_line_two}`,
+      currency: 'usd',
+      number: `${optionalFields?.invoice_number?.value}` || null,
+      date: new Date().toLocaleDateString(),
+      due_date:
+        new Date(optionalFields?.due_date?.value)?.toLocaleDateString() || null,
+      items: lineItems,
+      fields: {
+        tax: '%',
+      },
+      tax: optionalFields?.tax?.value || null,
+      notes: optionalFields?.notes?.value || null,
+      terms_conditions: optionalFields?.terms_conditions?.value || null,
+    })
+    console.log('Invoice Data:', invoiceData)
   }
 
   return (
     <dialog id="generate_invoice" className="modal">
-      <div className="modal-box lg:min-w-[900px]">
+      <form
+        onSubmit={() => {
+          handleSubmit()
+          console.log('Required Fields:', requiredFields)
+          console.log('Optional Fields:', optionalFields)
+        }}
+        className="modal-box lg:min-w-[900px]"
+      >
         <h3 className="font-bold text-lg text-primary">Add Invoice Details</h3>
         <div className="flex flex-col lg:flex-row items-start gap-4 w-full my-4">
           <div className="flex flex-col w-full bg-base-300 rounded-lg p-4">
@@ -99,20 +144,28 @@ const GenerateInvoice = () => {
               <span className="label-text">From</span>
               <div className="flex flex-col gap-2">
                 <input
+                  required
                   type="text"
+                  name="from_name"
                   placeholder="Your Name or Business Name"
                   className="input input-bordered w-full bg-base-300"
                   onChange={(e) => handleInput(e, 'required')}
                 />
                 <input
+                  required
                   type="text"
+                  name="from_address_line_one"
                   placeholder="Street Address"
                   className="input input-bordered w-full bg-base-300"
+                  onChange={(e) => handleInput(e, 'required')}
                 />
                 <input
+                  required
                   type="text"
+                  name="from_address_line_two"
                   placeholder="City, State, Zip Code"
                   className="input input-bordered w-full bg-base-300"
+                  onChange={(e) => handleInput(e, 'required')}
                 />
               </div>
             </div>
@@ -120,19 +173,28 @@ const GenerateInvoice = () => {
               <span className="label-text">Bill to</span>
               <div className="flex flex-col gap-2">
                 <input
+                  required
                   type="text"
+                  name="bill_to_name"
                   placeholder="Company Name"
                   className="input input-bordered w-full bg-base-300"
+                  onChange={(e) => handleInput(e, 'required')}
                 />
                 <input
+                  required
                   type="text"
+                  name="bill_to_address_line_one"
                   placeholder="Street Address"
                   className="input input-bordered w-full bg-base-300"
+                  onChange={(e) => handleInput(e, 'required')}
                 />
                 <input
+                  required
                   type="text"
+                  name="bill_to_address_line_two"
                   placeholder="City, State, Zip Code"
                   className="input input-bordered w-full bg-base-300"
+                  onChange={(e) => handleInput(e, 'required')}
                 />
               </div>
             </div>
@@ -244,14 +306,7 @@ const GenerateInvoice = () => {
           </div>
         </div>
         <div className="ms-auto flex flex-row items-center gap-4 w-fit">
-          <button
-            onClick={() => {
-              handleSubmit()
-              console.log('Required Fields:', requiredFields)
-              console.log('Optional Fields:', optionalFields)
-            }}
-            className="btn btn-accent"
-          >
+          <button type="submit" className="btn btn-accent">
             Generate Invoice
           </button>
           <button
@@ -261,7 +316,7 @@ const GenerateInvoice = () => {
             Cancel
           </button>
         </div>
-      </div>
+      </form>
     </dialog>
   )
 }

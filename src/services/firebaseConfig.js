@@ -20,7 +20,3 @@ export const app = initializeApp(firebaseConfig)
 // export const analytics = getAnalytics(app);
 export const auth = getAuth(app)
 export const db = getFirestore(app)
-
-//Emulator Setup
-const functions = getFunctions(getApp())
-connectFunctionsEmulator(functions, '127.0.0.1', 5001)

@@ -21,6 +21,7 @@ const AppContext = createContext({
   note: '', // String
   invoiceEvents: [],
   manualEntry: false,
+  toasts: [],
 })
 
 export function AppWrapper({ children }) {
@@ -43,6 +44,7 @@ export function AppWrapper({ children }) {
     note: '',
     invoiceEvents: [],
     manualEntry: false,
+    toasts: [],
   })
 
   return (
