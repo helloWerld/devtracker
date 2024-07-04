@@ -7,7 +7,7 @@ import Toast from '@/components/ui/Toast'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'devTracker v1.0',
+  title: 'devTracker',
   description: 'Track Your Development Hours with Ease!',
 }
 

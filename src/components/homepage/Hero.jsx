@@ -6,15 +6,15 @@ import { one, two, three, four, five } from '../../../public/avatars'
 
 const Hero = () => {
   return (
-    <div className="hero min-h-screen pt-6 sm:pt-12 lg:pt-0 bg-transparent">
+    <div className="hero min-h-screen pt-6 sm:pt-12 lg:pt-0 bg-primary-content">
       <div className="hero-content flex-col lg:flex-row px-8">
         <div className="w-full lg:w-1/2">
           <p className="mb-4">Get started in under 30 seconds 🚀</p>
-          <h1 className="text-5xl lg:text-6xl font-bold text-white">
+          <h1 className="text-5xl lg:text-6xl font-bold">
             Track & Invoice Your Dev Hours With Ease!
           </h1>
           <p className="py-6">
-            <span className="bg-gradient-to-br from-primary to-accent text-xl text-transparent bg-clip-text font-bold tracking-wide">
+            <span className="text-primary text-xl font-bold tracking-wide">
               The All-in-One Solution for Freelance Developers:
             </span>{' '}
             Track Time Across Employers, Customize Pay Rates, Monitor Real-Time

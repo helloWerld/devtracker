@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 .alert-error {
-  @apply bg-error text-base-300;
+  @apply bg-error text-neutral;
 }
 
 .alert-warning {
-  @apply bg-warning text-base-300;
+  @apply bg-warning text-neutral;
 }

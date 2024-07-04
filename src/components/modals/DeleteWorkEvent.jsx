@@ -2,7 +2,6 @@ import { deleteWorkEventFromWorkHistory } from '@/services/firestore'
 import React from 'react'
 
 const DeleteWorkEvent = ({ uid, deleteWork, setDeleteWork }) => {
-  console.log('work to be deleted:', deleteWork)
   return (
     <dialog
       id="confirm_delete_work_event"
